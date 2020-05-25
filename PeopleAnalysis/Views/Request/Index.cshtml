@@ -1,0 +1,81 @@
+﻿@model List<PeopleAnalysis.ApplicationAPI.Request>
+@inject CommonCoreLibrary.Services.ILocalizer localizer
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@localizer["Delete"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @localizer["DeleteSure"]
+            </div>
+            <div class="modal-footer">
+                <form method="post" asp-action="Delete">
+                    @Html.Hidden("toDelete")
+                    <input type="submit" value="@localizer["Yes"]" class="btn btn-success" />
+                </form>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">@localizer["No"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card m-2 p-2">
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <h2>@localizer["NoRequests"]</h2>
+    }
+    else
+    {
+        <h2>@localizer["ProcessRequests"]</h2>
+
+        <table class="w-100 table table-hover">
+            <thead>
+                <tr>
+                    <td>@localizer["StartTime"]</td>
+                    <td>@localizer["User"]</td>
+                    <td>@localizer["Social"]</td>
+                    <td>@localizer["Status"]</td>
+                    <td></td>
+                </tr>
+            </thead>
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td>@request.DateTime</td>
+                    <td><a target="_blank" rel="noopener noreferrer" href="@request.UserUrl">@request.User</a></td>
+                    <td>@request.Social</td>
+                    <td><a asp-action="Index" asp-controller="People" asp-route-key="@request.UserId" asp-route-social="@request.Social">@((StatusEnum)request.Status)</a></td>
+                    <td>
+                        <div class="d-inline-flex">
+                            @if (request.Status.In(new[] { StatusEnum.Create.Raw(), StatusEnum.InProgress.Raw() }))
+                            {
+                                <a href="#" data-toggle="modal" data-target="#delete-modal" onclick="$('#toDelete').val(@request.Id)">@localizer["RemoveRequest"]</a>
+                            }
+                            @if (request.Status.In(new[] { StatusEnum.Fail.Raw(), StatusEnum.Closed.Raw() }))
+                            {
+                                <form method="post" asp-action="StartAnalys" asp-controller="Analitic">
+                                    @Html.Hidden("id", request.UserId)
+                                    @Html.Hidden("social", request.Social)
+                                    @Html.Hidden("userName", request.User)
+                                    <button class="btn btn-link p-0 m-0 button-lnk" type="submit">@localizer["StartAnalytic"]</button>
+                                </form>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
+</div>

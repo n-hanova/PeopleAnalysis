@@ -1,0 +1,947 @@
+﻿{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApplicationAPI",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Analitic/StartAnalys": {
+      "post": {
+        "tags": [
+          "Analitic"
+        ],
+        "operationId": "StartAnalys",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalitycsRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalitycsRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalitycsRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Analitic/InProcess": {
+      "post": {
+        "tags": [
+          "Analitic"
+        ],
+        "operationId": "InProcess",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Analitic/ReadyResult": {
+      "post": {
+        "tags": [
+          "Analitic"
+        ],
+        "operationId": "ReadyResult",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadyResultViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadyResultViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadyResultViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/FindPeople": {
+      "post": {
+        "tags": [
+          "FindPeople"
+        ],
+        "operationId": "FindPeople",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindPeoplePageViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindPeoplePageViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindPeoplePageViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindPeoplePageViewModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindPeoplePageViewModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindPeoplePageViewModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Objects": {
+      "get": {
+        "tags": [
+          "Objects"
+        ],
+        "operationId": "Objects",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnalysObject"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnalysObject"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnalysObject"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Objects/Find": {
+      "get": {
+        "tags": [
+          "Objects"
+        ],
+        "operationId": "Find",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Objects/Create": {
+      "post": {
+        "tags": [
+          "Objects"
+        ],
+        "operationId": "Create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysObject"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysObject"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Objects/Edit": {
+      "put": {
+        "tags": [
+          "Objects"
+        ],
+        "operationId": "Edit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysObject"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysObject"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Objects/Delete": {
+      "delete": {
+        "tags": [
+          "Objects"
+        ],
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/People": {
+      "post": {
+        "tags": [
+          "People"
+        ],
+        "operationId": "People",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenPeopleViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenPeopleViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenPeopleViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailInformationViewModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailInformationViewModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailInformationViewModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Request": {
+      "get": {
+        "tags": [
+          "Request"
+        ],
+        "operationId": "RequestAll",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Request"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Request"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Request"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Request"
+        ],
+        "operationId": "Request",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnalitycsRequestModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "social": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Status": {
+        "type": "integer",
+        "format": "int32",
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "RequestViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "ownerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "social": {
+            "type": "string",
+            "nullable": true
+          },
+          "user": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "userUrl": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TimeSpan": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ticks": {
+            "type": "integer",
+            "readOnly": true,
+            "format": "int64"
+          },
+          "days": {
+            "type": "integer",
+            "readOnly": true,
+            "format": "int32"
+          },
+          "hours": {
+            "type": "integer",
+            "readOnly": true,
+            "format": "int32"
+          },
+          "milliseconds": {
+            "type": "integer",
+            "readOnly": true,
+            "format": "int32"
+          },
+          "minutes": {
+            "type": "integer",
+            "readOnly": true,
+            "format": "int32"
+          },
+          "seconds": {
+            "type": "integer",
+            "readOnly": true,
+            "format": "int32"
+          },
+          "totalDays": {
+            "type": "number",
+            "readOnly": true,
+            "format": "double"
+          },
+          "totalHours": {
+            "type": "number",
+            "readOnly": true,
+            "format": "double"
+          },
+          "totalMilliseconds": {
+            "type": "number",
+            "readOnly": true,
+            "format": "double"
+          },
+          "totalMinutes": {
+            "type": "number",
+            "readOnly": true,
+            "format": "double"
+          },
+          "totalSeconds": {
+            "type": "number",
+            "readOnly": true,
+            "format": "double"
+          }
+        }
+      },
+      "Request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "userUrl": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "social": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "timeComplete": {
+            "$ref": "#/components/schemas/TimeSpan"
+          }
+        }
+      },
+      "AnalysObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "ResultObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          },
+          "analysObject": {
+            "$ref": "#/components/schemas/AnalysObject"
+          },
+          "count": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Result": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "request": {
+            "$ref": "#/components/schemas/Request"
+          },
+          "resultAnswer": {
+            "type": "boolean"
+          },
+          "resultObjects": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ResultObject"
+            }
+          }
+        }
+      },
+      "ReadyResultViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "requestViewModel": {
+            "$ref": "#/components/schemas/RequestViewModel"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        }
+      },
+      "FindPeopleViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "findText": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "FindedPeopleViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "imagePath": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "FinderResultViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "findedPeopleViewModels": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/FindedPeopleViewModel"
+            }
+          }
+        }
+      },
+      "FindPeoplePageViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "findPeopleViewModel": {
+            "$ref": "#/components/schemas/FindPeopleViewModel"
+          },
+          "finderResultViewModel": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/FinderResultViewModel"
+            }
+          }
+        }
+      },
+      "OpenPeopleViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "social": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "AnalitycsViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "resultObjectsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "time": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "isResult": {
+            "type": "boolean"
+          },
+          "resultsNames": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "resultsValues": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "answer": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserDetailInformationViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthday": {
+            "type": "string",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "photos": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "pageUrl": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "isPrivate": {
+            "type": "boolean"
+          },
+          "social": {
+            "type": "string",
+            "nullable": true
+          },
+          "analitycsViewModel": {
+            "$ref": "#/components/schemas/AnalitycsViewModel"
+          }
+        }
+      }
+    }
+  }
+}

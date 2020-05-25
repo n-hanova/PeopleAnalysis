@@ -1,0 +1,35 @@
+﻿@page
+@model PeopleAnalysis.Pages.Auth.Manage.IndexModel
+@inject CommonCoreLibrary.Services.ILocalizer localizer
+@inject PeopleAnalysis.AuthAPI.IAuthAPIClient authAPIClient
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>@localizer["Profile"]</h4>
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username">@localizer["Username"]</label>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Language">@localizer["Lang"]</label>
+                <select class="form-control" asp-for="Input.Language" asp-items="(await authAPIClient.ApiUserLangAsync()).Select(x => new SelectListItem(x.Name, x.Code))"></select>
+                <span asp-validation-for="Input.Language" class="text-danger"></span>
+            </div>
+
+            <button id="update-profile-button" type="submit" class="btn btn-primary">@localizer["Save"]</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

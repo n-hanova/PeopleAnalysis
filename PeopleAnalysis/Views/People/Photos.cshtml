@@ -1,0 +1,51 @@
+﻿@model PeopleAnalysis.ApplicationAPI.UserDetailInformationViewModel
+@inject CommonCoreLibrary.Services.ILocalizer localizer
+
+@if (Model.Photos == null || Model.Photos.Count == 0)
+{
+    <h2 class="p-2">@localizer["PhotoPrivate"]</h2>
+}
+else
+{
+    <h2 class="p-2">@localizer["Photos"]</h2>
+    <hr />
+
+    <div class="d-flex flex-wrap justify-content-center text-center">
+        @foreach (var photo in Model.Photos?.Take(3) ?? Enumerable.Empty<Uri>())
+        {
+            var guid = Guid.NewGuid().ToString();
+            <div class="card p-3 m-2" style="width: 18rem;">
+                <a href="@photo" data-lightbox="@guid">
+                    <img class="card-img-top" src="@photo" alt="@guid" />
+                </a>
+            </div>
+        }
+    </div>
+
+    @if ((Model.Photos?.Count ?? 0) > 3)
+    {
+        <button id="expender_@Model.Id" class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#data_@Model.Id" aria-expanded="false"
+                onclick="$(this).css('display', 'none' );">
+            @localizer["Open"]
+        </button>
+    }
+
+    <div class="collapse" id="data_@Model.Id">
+        <div class="d-flex flex-wrap justify-content-center text-center">
+            @foreach (var photo in Model.Photos?.Skip(3) ?? Enumerable.Empty<Uri>())
+            {
+                var guid = Guid.NewGuid().ToString();
+                <div class="card p-3 m-2" style="width: 18rem;">
+                    <a href="@photo" data-lightbox="@guid">
+                        <img class="card-img-top" src="@photo" alt="@guid" />
+                    </a>
+                </div>
+            }
+        </div>
+
+        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#data_@Model.Id"
+                onclick="$('#expender_@Model.Id').css('display','block')">
+            @localizer["Hide"]
+        </button>
+    </div>
+}

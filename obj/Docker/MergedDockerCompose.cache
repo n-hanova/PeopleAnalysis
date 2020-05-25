@@ -1,0 +1,102 @@
+networks:
+  peopleapp:
+    driver: bridge
+services:
+  analyticapi:
+    build:
+      context: C:\Repositories\University\Helper\PeopleAnalysis
+      dockerfile: AnalyticAPI/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      Kestrel__Certificates__Default__Password: ro
+      Kestrel__Certificates__Default__Path: /root/.dotnet/https/cert-aspnetcore.pfx
+      WAIT_HOSTS: db:5432, rabbitmq:5672
+      WAIT_HOSTS_TIMEOUT: 300
+    image: analyticapi
+    networks:
+      peopleapp: {}
+    ports:
+    - published: 8003
+      target: 443
+    volumes:
+    - /c/Users/Nastya Winehouse/AppData/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+    - /c/Users/Nastya Winehouse/AppData/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  authapi:
+    build:
+      context: C:\Repositories\University\Helper\PeopleAnalysis
+      dockerfile: AuthAPI/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      Kestrel__Certificates__Default__Password: ro
+      Kestrel__Certificates__Default__Path: /root/.dotnet/https/cert-aspnetcore.pfx
+      WAIT_HOSTS: db:5432
+      WAIT_HOSTS_TIMEOUT: 300
+    image: authapi
+    networks:
+      peopleapp: {}
+    ports:
+    - published: 8002
+      target: 443
+    volumes:
+    - /c/Users/Nastya Winehouse/AppData/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+    - /c/Users/Nastya Winehouse/AppData/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  db:
+    environment:
+      POSTGRES_PASSWORD: 6521
+    image: postgres
+    networks:
+      peopleapp: {}
+    ports:
+    - published: 5433
+      target: 5432
+    restart: always
+  peopleanalisysapi:
+    build:
+      context: C:\Repositories\University\Helper\PeopleAnalysis
+      dockerfile: PeopleAnalisysAPI/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      Kestrel__Certificates__Default__Password: ro
+      Kestrel__Certificates__Default__Path: /root/.dotnet/https/cert-aspnetcore.pfx
+      WAIT_HOSTS: db:5432, rabbitmq:5672
+      WAIT_HOSTS_TIMEOUT: 300
+    image: peopleanalisysapi
+    networks:
+      peopleapp: {}
+    ports:
+    - published: 8001
+      target: 443
+    volumes:
+    - /c/Users/Nastya Winehouse/AppData/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+    - /c/Users/Nastya Winehouse/AppData/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  peopleanalysis:
+    build:
+      context: C:\Repositories\University\Helper\PeopleAnalysis
+      dockerfile: PeopleAnalysis/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      Kestrel__Certificates__Default__Password: ro
+      Kestrel__Certificates__Default__Path: /root/.dotnet/https/cert-aspnetcore.pfx
+    image: peopleanalysis
+    networks:
+      peopleapp: {}
+    ports:
+    - published: 8000
+      target: 443
+    volumes:
+    - /c/Users/Nastya Winehouse/AppData/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+    - /c/Users/Nastya Winehouse/AppData/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  rabbitmq:
+    image: rabbitmq:3.6.6-management
+    networks:
+      peopleapp: {}
+    ports:
+    - published: 5673
+      target: 5672
+    - published: 15673
+      target: 15672
+version: '3.4'

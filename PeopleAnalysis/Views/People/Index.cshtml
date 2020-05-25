@@ -1,0 +1,73 @@
+﻿@model PeopleAnalysis.ApplicationAPI.UserDetailInformationViewModel
+@inject PeopleAnalysis.Services.ColorService colorService
+@inject CommonCoreLibrary.Services.ILocalizer localizer
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card d-flex flex-column p-3 m-2 ">
+    <h1 class="p-2">@localizer["AboutPeople"]</h1>
+    <div class="d-flex flex-row" style="width: 100%;">
+        <img class="card-img-top w-25 m-3" src="@Model.Photo">
+        <div class="card-body">
+            <h5 class="card-title">@Model.FullName</h5>
+            <p class="card-text">@localizer["Birthday"]: @(Model.Birthday?.ToString() ?? localizer["NotSet"])</p>
+            <a class="card-text" target="_blank" rel="noopener noreferrer" href="@Model.PageUrl">@localizer["PageLink"]</a>
+        </div>
+    </div>
+
+    @{await Html.RenderPartialAsync("Photos", Model);}
+    @{await Html.RenderPartialAsync("Analitycs", Model);}
+
+</div>
+
+
+@section Scripts
+{
+    @if (Model.AnalitycsViewModel.IsResult)
+    {
+        <script>
+            $(function () {
+                var barChart = new Chart($('#bar'), {
+                    type: 'bar',
+                    data: {
+                        labels: [@Html.Raw(string.Join(",", Model.AnalitycsViewModel.ResultsNames.Select(x => $@"""{x}""")))],
+                        datasets: [{
+                            data: [@(string.Join(",", Model.AnalitycsViewModel.ResultsValues))],
+                            backgroundColor:[@Html.Raw(string.Join(",",colorService.ColorHexList(Model.AnalitycsViewModel.ResultObjectsCount)))]
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+                var pieChart = new Chart($('#pie'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: [@Html.Raw(string.Join(",", Model.AnalitycsViewModel.ResultsNames.Select(x => $@"""{x}""")))],
+                        datasets: [{
+                            data: [@(string.Join(",", Model.AnalitycsViewModel.ResultsValues))],
+                            backgroundColor:[@Html.Raw(string.Join(",",colorService.ColorHexList(Model.AnalitycsViewModel.ResultObjectsCount)))]
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            });
+        </script>
+    }
+}

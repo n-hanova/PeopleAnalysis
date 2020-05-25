@@ -1,0 +1,45 @@
+﻿@model PeopleAnalysis.AuthAPI.UserViewModel
+@inject PeopleAnalysis.AuthAPI.IAuthAPIClient authAPIClient
+@inject CommonCoreLibrary.Services.ILocalizer localizer
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>@localizer["Create"]</h1>
+
+<h4>@localizer["User"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="text-danger">@TempData["Error"]</div>
+            <div class="form-group">
+                <label class="control-label">@localizer["Login"]</label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">@localizer["Password"]</label>
+                <input type="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">@localizer["Role"]</label>
+                @Html.DropDownListFor(x => x.Role, (await authAPIClient.ApiRolesAsync()).Select(x => new SelectListItem(x.Name, x.Name)).ToList(), new { @class = "custom-select" })
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@localizer["Create"]" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">@localizer["Back"]</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

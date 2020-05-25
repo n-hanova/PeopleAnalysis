@@ -1,0 +1,21 @@
+﻿using PeopleAnalysis.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PeopleAnalisysAPI.Models.Rabbit
+{
+    public class RequestRabbit
+    {
+        public int Id { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Now;
+        public string User { get; set; }
+        public string UserId { get; set; }
+        public Uri UserUrl { get; set; }
+        public string Social { get; set; }
+        public string OwnerId { get; set; }
+        public string CreateId { get; set; }
+        public Status Status { get; set; }
+    }
+}

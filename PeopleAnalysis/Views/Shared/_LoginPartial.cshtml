@@ -1,0 +1,21 @@
+﻿@inject CommonCoreLibrary.Services.ILocalizer localizer
+
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/Auth/Manage/Index" title="Manage">@User.Identity.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" method="post" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
+                <button type="submit" class="nav-link btn btn-link text-dark">@localizer["Logout"]</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/Auth/Login">Login</a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,40 @@
+﻿@model PeopleAnalysis.ApplicationAPI.UserDetailInformationViewModel
+@inject CommonCoreLibrary.Services.ILocalizer localizer
+
+<h2 class="p-2 mt-2">@localizer["Analytic"]</h2>
+<hr />
+
+@if (Model.IsPrivate || (Model.Photos?.Count ?? 0) < 2)
+{
+    <h3 class="p-2">@localizer["PrivateProfile"]</h3>
+}
+else if (Model.AnalitycsViewModel.Status == StatusEnum.InProgress.Raw())
+{
+    <a asp-action="Index" asp-controller="Request" class="h3 p-2">@localizer["InProgress"]</a>
+}
+else if (Model.AnalitycsViewModel.Status == StatusEnum.Complete.Raw())
+{
+    <div class="p-0">
+        <p class="h4">@localizer["ElapseTime"]: @Model.AnalitycsViewModel.Time.ToString()</p>
+        <p class="h4">@localizer["Resolution"]: @Model.AnalitycsViewModel.Answer</p>
+        <div class="d-flex flex-wrap">
+            <div class="card w-50">
+                <canvas id="bar"></canvas>
+            </div>
+            <div class="card w-50">
+                <canvas id="pie"></canvas>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.AnalitycsViewModel.Status.In(new[] { StatusEnum.Closed.Raw(), StatusEnum.Fail.Raw(), StatusEnum.Complete.Raw() })
+  || (!Model.AnalitycsViewModel.IsResult && Model.AnalitycsViewModel.Status != StatusEnum.InProgress.Raw()))
+{
+    <form method="post" asp-action="StartAnalys" asp-controller="Analitic">
+        @Html.Hidden("id", Model.Id)
+        @Html.Hidden("social", Model.Social)
+        @Html.Hidden("userName", Model.FullName)
+        <input value="@localizer["StartAnalytic"]" class="btn btn-primary w-100" type="submit" />
+    </form>
+}

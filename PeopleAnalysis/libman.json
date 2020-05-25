@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "lightbox2@2.11.1",
+      "destination": "wwwroot/lib/lightbox2/"
+    },
+    {
+      "library": "jquery-modal@0.9.2",
+      "destination": "wwwroot/lib/jquery-modal/"
+    },
+    {
+      "library": "Chart.js@2.9.3",
+      "destination": "wwwroot/lib/Chart.js/"
+    }
+  ]
+}
